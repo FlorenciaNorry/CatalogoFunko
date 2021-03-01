@@ -13,6 +13,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
     <title>Catalogo Funkopop</title>
   </head>
   <body>
@@ -34,7 +35,9 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                <a class="nav-link active" aria-current="page" href="index.html"
+                  >Inicio</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="admin.html">Administracion</a>
@@ -63,40 +66,40 @@
             <button
               class="btn btn-primary"
               id="btnAgregar"
-              data-bs-toggle="modal"
-              data-bs-target="#modalProducto"
             >
               Agregar
             </button>
           </div>
         </div>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Numero de Serie</th>
-              <th scope="col">Categoria</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Imagen</th>
-              <th scope="col">Opciones</th>
-            </tr>
-          </thead>
-          <tbody id="tablaFunko">
-            <tr>
-              <th scope="row">1</th>
-              <td>Batman</td>
-              <td>D213123asdfa</td>
-              <td>DC</td>
-              <td>Caballero de la Noche</td>
-              <td>Sin ima</td>
-              <td>
-                <button class="btn btn-warning">Editar</button>
-                <button class="btn btn-danger">Borrar</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Numero de Serie</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaFunko">
+              <tr>
+                <th scope="row">1</th>
+                <td>Batman</td>
+                <td>D213123asdfa</td>
+                <td>DC</td>
+                <td>Caballero de la Noche</td>
+                <td>Sin ima</td>
+                <td>
+                  <button class="btn btn-warning">Editar</button>
+                  <button class="btn btn-danger">Borrar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
 
@@ -201,7 +204,9 @@
     <footer class="bg-dark text-light">
       <p class="navbar-brand text-center">
         &copy; Todos los derechos reservados
+      </p>
     </footer>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
