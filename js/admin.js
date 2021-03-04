@@ -3,11 +3,14 @@ import { Funko } from './funkoClass.js'
 let listaFunkopop = [];
 const modalFunko = new bootstrap.Modal(document.getElementById('modalProducto'));
 
-//queremos qeu el boton agregar escuche l evento clic   
+//queremos qeu el boton agregar escuche el evento clic   
 let btnAgregar = document.getElementById('btnAgregar');
-btnAgregar.addEventListener('click', function(){
+btnAgregar.addEventListener('click', function () {
     modalFunko.show();
 });
+
+//buscar los datos del localstorage
+leerDatos();
 
 window.agregarFuncopop = function (event) {
     //el objetivo de esta funcion es agregar un funkopop nuevo en loal Storage
@@ -35,14 +38,59 @@ window.agregarFuncopop = function (event) {
         'Nuevo producto',
         'El funkoPop se aguego correctamente',
         'success'
-      )
-      //cerrar la ventana modal
-      modalFunko.hide()
+    )
+    //llamar a leer datos
+    leerDatos();   
+    //cerrar la ventana modal
+    modalFunko.hide()
 
 };
 
-function limpiarFormulario(){
+function limpiarFormulario() {
     //limpiamos los valores del formulario
     let formulario = document.getElementById('formFunkopop');
     formulario.reset();
+}
+
+//leer datos del local storage
+function leerDatos() {
+    if (localStorage.length > 0) {
+        //traer datos del localstorage
+        let _listaFunkopop = JSON.parse(localStorage.getItem('listaFunkoKey'));
+        console.log(_listaFunkopop);
+        //si el arreglo de productos esta vacio le cargo los datos de localstorage
+        if (listaFunkopop.length === 0) {
+            listaFunkopop = _listaFunkopop;
+        }
+        //dibujar la tabla
+        dibujarTabla(_listaFunkopop);
+    }
+}
+
+//funcion que insertara tablas en el html con los funcos ingresados
+function dibujarTabla(_listaFunkopop) {
+    //traer el padre de las filas que es el tbody
+    let tablaFunko = document.getElementById('tablaFunko');
+    //variable para trabajar codigo html
+    let filaFunko = '';
+    tablaFunko.innerHTML = '';
+
+    // for(let i=0; i<_listaFunkopop.length;i++){}
+    for (let i in _listaFunkopop) {
+        //crear la fila 
+        filaFunko = `<tr>
+        <th scope="row">${_listaFunkopop[i].codigo}</th>
+        <td>${_listaFunkopop[i].nombre}</td>
+        <td>${_listaFunkopop[i].numSerie}</td>
+        <td>${_listaFunkopop[i].categoria}</td>
+        <td>${_listaFunkopop[i].descripcion}</td>
+        <td>${_listaFunkopop[i].imagen}</td>
+        <td>
+          <button class="btn btn-warning">Editar</button>
+          <button class="btn btn-danger">Borrar</button>
+        </td>
+      </tr>`;
+        //agregar la fila al elemento padre
+        tablaFunko.innerHTML += filaFunko;
+    }
 }
