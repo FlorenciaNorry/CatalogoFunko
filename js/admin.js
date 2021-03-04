@@ -87,10 +87,32 @@ function dibujarTabla(_listaFunkopop) {
         <td>${_listaFunkopop[i].imagen}</td>
         <td>
           <button class="btn btn-warning">Editar</button>
-          <button class="btn btn-danger">Borrar</button>
+          <button class="btn btn-danger" onclick='eliminarFunkopop(this)' id='${_listaFunkopop[i].codigo}'>Borrar</button>
         </td>
       </tr>`;
         //agregar la fila al elemento padre
         tablaFunko.innerHTML += filaFunko;
     }
+}
+
+window.eliminarFunkopop = function(boton){
+    console.log(boton.id);
+    Swal.fire({
+        title: 'Esta seguro de eliminar el Funkopop',
+        text: "No puedes volver atras luego de este paso",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si!',
+        cancelButtonText: 'Cancelar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
 }
