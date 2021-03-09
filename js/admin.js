@@ -3,6 +3,10 @@ import { Funko } from './funkoClass.js'
 let listaFunkopop = [];
 const modalFunko = new bootstrap.Modal(document.getElementById('modalProducto'));
 
+//modificarFunko == true quiero modificar un funko existente
+//modificarFunko == false quiero agregar un nuevo funko
+let modificarFunko = false;
+
 //queremos qeu el boton agregar escuche el evento clic   
 let btnAgregar = document.getElementById('btnAgregar');
 btnAgregar.addEventListener('click', function () {
@@ -86,7 +90,7 @@ function dibujarTabla(_listaFunkopop) {
         <td>${_listaFunkopop[i].descripcion}</td>
         <td>${_listaFunkopop[i].imagen}</td>
         <td>
-          <button class="btn btn-warning">Editar</button>
+          <button class="btn btn-warning" onclick ='prepararDatosFunko(this)' id='${_listaFunkopop[i].codigo}'>Editar</button>
           <button class="btn btn-danger" onclick='eliminarFunkopop(this)' id='${_listaFunkopop[i].codigo}'>Borrar</button>
         </td>
       </tr>`;
@@ -108,11 +112,42 @@ window.eliminarFunkopop = function(boton){
         cancelButtonText: 'Cancelar!'
       }).then((result) => {
         if (result.isConfirmed) {
+          //codigo para eliminar funko
+          // let funkopopFiltrados = listaFunkopop.filter(function(producto){
+          //   return producto.codigo != boton.id
+          // })
+          let funkopopFiltrados = listaFunkopop.filter(producto => producto.codigo != boton.id)
+          console.log(funkopopFiltrados);
+          //igualar los arreglos
+          listaFunkopop = funkopopFiltrados
+          //guardar los datos en localstorage
+          localStorage.setItem('listaFunkoKey', JSON.stringify(listaFunkopop))
+          //llamar a la funcion leer datos
+          leerDatos();
           Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
+            'Producto eliminado!',
+            'El Funkopop seleccionado fue eliminado.',
             'success'
           )
         }
       })
+}
+
+window.prepararDatosFunko = function(boton){
+  console.log(boton.id);
+  //buscar el objeto del  arreglo listaFunkopop
+  // let funkoEncontrado = listaFunkopop.find(function (producto){
+  //   return producto.codigo === boton.id
+  // })
+  let funkoEncontrado = listaFunkopop.find(producto => producto.codigo === boton.id);
+  console.log(funkoEncontrado);
+  //cargar en el formulario todos los datos
+  document.getElementById('codigo').value = funkoEncontrado.codigo;
+  document.getElementById('nombre').value = funkoEncontrado.nombre;
+  document.getElementById('numSerie').value = funkoEncontrado.numSerie;
+  document.getElementById('categoria').value = funkoEncontrado.categoria;
+  document.getElementById('descripcion').value = funkoEncontrado.descripcion;
+  document.getElementById('imagen').value = funkoEncontrado.imagen;
+  //mostrar la ventana modal
+  modalFunko.show();
 }
