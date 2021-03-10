@@ -42,7 +42,7 @@ function agregarFuncopop() {
     'Nuevo producto',
     'El funkoPop se aguego correctamente',
     'success'
-  )
+  );
   //llamar a leer datos
   leerDatos();
   //cerrar la ventana modal
@@ -160,9 +160,44 @@ window.guardarDatos = function () {
   console.log('desde la funcion guardar datos');
   if (modificarFunko) {
     //modificar un funkopop existente
-    console.log('aqui deberia modificar el funko')
+    console.log('aqui deberia modificar el funko');
+    modificarFunkoExistente();
   } else {
     //agregar un nuevo funkopop
     agregarFuncopop();
   }
+}
+
+function modificarFunkoExistente() {
+  //busco el objeto que quiero editar
+
+  let codigo = document.getElementById('codigo').value;
+  let nombre = document.getElementById('nombre').value;
+  let numSerie = document.getElementById('numSerie').value;
+  let categoria = document.getElementById('categoria').value;
+  let descripcion = document.getElementById('descripcion').value;
+  let imagen = document.getElementById('imagen').value;
+
+  for (let i in listaFunkopop) {
+    if (listaFunkopop[i].codigo === codigo) {
+      //actualizar los valores del objeto
+      listaFunkopop[i].nombre = nombre;
+      listaFunkopop[i].numSerie = numSerie;
+      listaFunkopop[i].categoria = categoria;
+      listaFunkopop[i].descripcion = descripcion;
+      listaFunkopop[i].imagen = imagen;
+
+    }
+  }
+  //guardar arregle actualizado en local storage
+  localStorage.setItem('listaFunkoKey', JSON.stringify(listaFunkopop));
+  //mostrar alerta de actualizacion del producto
+  Swal.fire(
+    'Producto modificado',
+    'El funkoPop se aguego correctamente',
+    'success'
+  );
+  modalFunko.hide();
+  //volver a dibujar la tabla
+  leerDatos();
 }
